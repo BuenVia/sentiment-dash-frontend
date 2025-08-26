@@ -1,0 +1,123 @@
+*, *::after, *::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.head {
+  background-color: #ffffff;
+  color: #4e4e4e;
+  border-bottom: 2px solid #4e4e4e;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.main-body {
+  padding: 0 3em;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.bg-container {
+  background-color: #f1f1f1;
+}
+
+.show-form {
+  margin-top: 1em;
+  padding: 10px;
+  background-color: #fff;
+  color: rgb(56, 56, 56);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.show-form:hover {
+  color: #000000;
+}
+
+.feedback-form {
+  /* width: 700px; */
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.form-cont {
+  /* display: flex; */
+}
+
+.feedback-form input, textarea {
+  margin: 1em 0;
+  width: 500px;
+  outline: none;
+}
+
+.feedback-form textarea {
+  min-width: 300px;
+  min-height: 200px;
+  resize: none;
+}
+
+.feedback-form button {
+  /* margin: 0 1em; */
+  width: 300px;
+}
+
+.card-box {
+  margin: 2em;
+  /* height: 100%; */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 2px 4px 4px hsl(0deg 0% 0% / 0.18);
+}
+.card-box:hover {
+  transition: .5s;
+  background-color: #fcfcfc;
+  box-shadow: 2px 4px 4px hsl(0deg 0% 0% / 0.38);
+}
+.card-height {
+  height: 100%;
+}
+
+.sent-list {
+  list-style: none;
+}
+
+.feedback-list {
+  padding: 2em 0;
+  list-style: none;
+  border-bottom: 1px solid black;
+}
+
+.text-positive {
+  padding: 5px;
+  background-color: green;
+  color: #eee;
+  border-radius: 5px;
+}
+.text-negative {
+  padding: 5px;
+  background-color: red;
+  color: #eee;
+  border-radius: 5px
+}
+.text-neutral {
+  padding: 5px;
+  background-color: gold;
+  color: #333;
+  border-radius: 5px
+}
