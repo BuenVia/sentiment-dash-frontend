@@ -21,6 +21,20 @@ export default function Dashboard() {
     }
   };
 
+  const transformTrendData = (trend) => {
+    const grouped = {};
+
+    trend.forEach((item) => {
+      const { date, sentiment_label, count } = item;
+      if (!grouped[date]) {
+        grouped[date] = { date };
+      }
+      grouped[date][sentiment_label] = count;
+    });
+
+      return Object.values(grouped);
+  }
+
   // called when new feedback is created
   const handleNewFeedback = async (newItem) => {
     setFeedback((prev) => [newItem, ...prev]); // prepend to list
@@ -44,7 +58,7 @@ export default function Dashboard() {
             <SentimentDistribution distribution={stats} />
           </div>
           <div className="col">
-            <SentimentChart data={stats.trend_over_time} />
+            <SentimentChart  data={transformTrendData(stats.trend_over_time)}  />
           </div>
         </div>
         </>
