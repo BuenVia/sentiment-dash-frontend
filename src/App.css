@@ -121,3 +121,27 @@ body {
   color: #333;
   border-radius: 5px
 }
+
+/* Spinner container (centers on screen) */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem; /* adjust spacing as needed */
+}
+
+/* The spinner itself */
+.spinner {
+  border: 6px solid #f3f3f3; /* Light grey background */
+  border-top: 6px solid #3498db; /* Blue highlight */
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+}
+
+/* Animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
