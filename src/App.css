@@ -125,6 +125,7 @@ body {
 /* Spinner container (centers on screen) */
 .spinner-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem; /* adjust spacing as needed */
