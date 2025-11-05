@@ -3,12 +3,12 @@ import api from "../api";
 import SentimentChart from "../components/SentimentChart";
 import SentimentDistribution from "../components/SentimentDistribution";
 import FeedbackForm from "../components/FeedbackForm";
-import RecentFeedback from "../components/RecentFeedback";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Summary from "../components/Summary";
 
+
 export default function Dashboard() {
-  const [feedback, setFeedback] = useState([]);
+  const [, setFeedback] = useState([]);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -62,20 +62,6 @@ export default function Dashboard() {
 
   return (
     <div className="bg-container">
-      <div className="row p-4">
-        <div>
-
-        <p>Customer Sentiment Dashboard
-
-The Customer Sentiment Dashboard is a full-stack application built to demonstrate practical problem-solving through modern AI, data processing, and web technologies. It tackles a common business challenge — understanding customer sentiment — by integrating multiple components into a cohesive analytics pipeline.
-
-The project features a Django REST API backend and a React frontend, communicating via RESTful endpoints for efficient data exchange. It employs Anthropic’s Claude Haiku 4.5, LangChain, and VADER Sentiment Analyzer for natural language processing and sentiment classification, while Recharts handles interactive data visualization.
-
-This dashboard enables real-time sentiment aggregation and summarization based on customer reviews. Users can input their own feedback or generate synthetic reviews using AI via the “Generate Review” feature, providing both end-user functionality and a test harness for the sentiment analysis workflow. </p>
-      </div>
-        </div>
-      <FeedbackForm onFeedbackSubmitted={handleNewFeedback} />
-
 
       {stats && (
         <div className="row pb-5">
@@ -91,11 +77,8 @@ This dashboard enables real-time sentiment aggregation and summarization based o
         </div>
       )}
 
-      <div className="row pb-3">
-        <div className="col">
-          <RecentFeedback feedback={feedback} />
-        </div>
-      </div>
+      <FeedbackForm onFeedbackSubmitted={handleNewFeedback} />
+
     </div>
   );
 }

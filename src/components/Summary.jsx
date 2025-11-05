@@ -26,8 +26,8 @@ export default function Summary() {
 
     return (
     <div className="card-box p-4 card-height">
-      <h2 className="text-xl font-bold mb-2" style={{textAlign: "center"}}>Summary</h2>
-      {!showSummary ? 
+    <h2 className="text-xl font-bold mb-2" style={{textAlign: "center"}}>Summary</h2>
+    {!showSummary ? 
         <div>
             {!loading ? 
             <div style={{textAlign: "center"}}>
@@ -43,7 +43,7 @@ export default function Summary() {
             <Markdown>{summary}</Markdown>
             <p>Please note that this summary has been created by AI and therefore there are possible inaccuracies in the response.</p>
         </div>
-      }
+    }
     </div>
     )
 }

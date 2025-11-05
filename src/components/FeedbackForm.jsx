@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "../api";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function FeedbackForm({ onFeedbackSubmitted }) {
   const [data, setData] = useState({
@@ -8,7 +9,7 @@ export default function FeedbackForm({ onFeedbackSubmitted }) {
     text: ""
   });
   const [loading, setLoading] = useState(false);
-  const [showForm, setShowForm] = useState(false)
+  const [showForm, setShowForm] = useState(true)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -42,12 +43,11 @@ export default function FeedbackForm({ onFeedbackSubmitted }) {
     }
   };
 
-  const handleShowForm = () => {
-    setShowForm(prevVal => !prevVal)
-  }
+
 
   const generateAiFeedback = async () => {
     try {
+      setLoading(true)
       console.log("Getting feedback");
       const aiRes = await api.get("/feedback-ai/")
       console.log("Response received");
@@ -56,16 +56,18 @@ export default function FeedbackForm({ onFeedbackSubmitted }) {
     } catch (err) {
       console.error(err)
     } finally {
-      setLoading(false);
+      setLoading(true);
       setShowForm(false)
     }
   }
 
   return (
-    <div className="feedback-form">
-    {showForm ? 
     <div className="row card-box p-4">
-                <p onClick={handleShowForm} className="show-form">Hide form</p>
+
+      {showForm ? 
+      <>
+        {loading ? <LoadingSpinner message={"Generating review"} /> : 
+        <>
       <div className="col">
         <h3>Generate AI feedback</h3>
         <img src="./assets/claude.svg" alt="Claude" style={{ height: "30px", margin: "1em" }}></img>
@@ -73,6 +75,7 @@ export default function FeedbackForm({ onFeedbackSubmitted }) {
         <p>This review will be created using Anthropic's Claude Haiku 4.5 model and Langchain.</p>
         <p>Please allow up to 60 seconds for this to be generated. The reviews below should update automatically once complete.</p>
         <button className="btn btn-primary" onClick={generateAiFeedback}>Generate</button>
+
       </div>
       <div className="col">
         <form onSubmit={handleSubmit}>
@@ -119,8 +122,11 @@ export default function FeedbackForm({ onFeedbackSubmitted }) {
             <button type="submit" disabled={loading} className="btn btn-success">{loading ? "Submitting..." : "Submit"}</button>
         </form>
       </div>
+        </>}
+      </>
+      : <a href="/feedback" className="btn btn-success">Review all feedback</a>
+      }
     </div>
-    : <p onClick={handleShowForm} className="show-form">Generate feedback</p>}
-    </div>
+
   );
 }
