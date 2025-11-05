@@ -46,53 +46,81 @@ export default function FeedbackForm({ onFeedbackSubmitted }) {
     setShowForm(prevVal => !prevVal)
   }
 
+  const generateAiFeedback = async () => {
+    try {
+      console.log("Getting feedback");
+      const aiRes = await api.get("/feedback-ai/")
+      console.log("Response received");
+      onFeedbackSubmitted(aiRes.data); // send new feedback object up
+      console.log("Completed");
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false);
+      setShowForm(false)
+    }
+  }
+
   return (
     <div className="feedback-form">
     {showForm ? 
-    <form onSubmit={handleSubmit} className="card-box p-4">
-      <p onClick={handleShowForm} className="show-form">Hide form</p>
-        <div className="form-cont">
-          <label htmlFor="name" className="form-label">Name *</label>
-            <input
-                type="text"
-                name="name"
-                onChange={handleChange}
-                value={data.name}
-                placeholder="Name..."
-                className="form-control"
-                required
-            />
-        </div>
+    <div className="row card-box p-4">
+                <p onClick={handleShowForm} className="show-form">Hide form</p>
+      <div className="col">
+        <h3>Generate AI feedback</h3>
+        <img src="./assets/claude.svg" alt="Claude" style={{ height: "30px", margin: "1em" }}></img>
+        <img src="./assets/langchain.svg" alt="langchain" style={{ height: "30px", margin: "1em" }}></img>
+        <p>This review will be created using Anthropic's Claude Haiku 4.5 model and Langchain.</p>
+        <p>Please allow up to 60 seconds for this to be generated. The reviews below should update automatically once complete.</p>
+        <button className="btn btn-primary" onClick={generateAiFeedback}>Generate</button>
+      </div>
+      <div className="col">
+        <form onSubmit={handleSubmit}>
+          <h3>Write your own feedback</h3>
+            <div className="form-cont">
+              <label htmlFor="name" className="form-label">Name *</label>
+                <input
+                    type="text"
+                    name="name"
+                    onChange={handleChange}
+                    value={data.name}
+                    placeholder="Name..."
+                    className="form-control"
+                    required
+                />
+            </div>
 
-        <div className="form-cont">
-          <label htmlFor="name" className="form-label">Email (optional)</label>
-            <input
-                type="text"
-                name="email"
-                onChange={handleChange}
-                value={data.email}
-                placeholder="Email..."
-                className="form-control"
-            />
-        </div>
-        
-        <div className="form-cont">
-          <label htmlFor="text" className="form-label">Please leave a review (max 250 chars) *</label>
-            <textarea
-                type="text"
-                name="text"
-                onChange={handleChange}
-                value={data.text}
-                placeholder="Leave your feedback..."
-                className="form-control"
-                maxLength={250}
-                required
-            />
-        </div>
-      
-        <button type="submit" disabled={loading} className="btn btn-success">{loading ? "Submitting..." : "Submit"}</button>
-    </form>
-    : <p onClick={handleShowForm} className="show-form">Click here to leave your feedback</p>}
+            <div className="form-cont">
+              <label htmlFor="name" className="form-label">Email (optional)</label>
+                <input
+                    type="text"
+                    name="email"
+                    onChange={handleChange}
+                    value={data.email}
+                    placeholder="Email..."
+                    className="form-control"
+                />
+            </div>
+            
+            <div className="form-cont">
+              <label htmlFor="text" className="form-label">Please leave a review (max 250 chars) *</label>
+                <textarea
+                    type="text"
+                    name="text"
+                    onChange={handleChange}
+                    value={data.text}
+                    placeholder="Leave your feedback..."
+                    className="form-control"
+                    maxLength={250}
+                    required
+                />
+            </div>
+          
+            <button type="submit" disabled={loading} className="btn btn-success">{loading ? "Submitting..." : "Submit"}</button>
+        </form>
+      </div>
+    </div>
+    : <p onClick={handleShowForm} className="show-form">Generate feedback</p>}
     </div>
   );
 }
